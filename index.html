@@ -1,0 +1,198 @@
+---
+layout: default
+title: Trang chủ
+---
+
+<!-- Hero Section -->
+<section class="hero-section bg-gradient-primary text-white py-5">
+    <div class="container">
+        <div class="row align-items-center min-vh-75">
+            <div class="col-lg-6">
+                <h1 class="display-3 fw-bold mb-4">
+                    Chia sẻ kiến thức <span class="text-warning">công nghệ</span>
+                </h1>
+                <p class="lead mb-4">
+                    Nơi chia sẻ những bài viết chất lượng về lập trình, DevOps, 
+                    và các công nghệ mới nhất trong ngành IT.
+                </p>
+                <div class="hero-buttons">
+                    <a href="/blog/" class="btn btn-warning btn-lg me-3">
+                        <i class="fas fa-book-open me-2"></i>Đọc bài viết
+                    </a>
+                    <a href="/series/" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-layer-group me-2"></i>Xem series
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <div class="hero-image">
+                    <i class="fas fa-code fa-10x text-warning opacity-25"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Posts Section -->
+<section class="featured-posts py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center mb-5">
+                    <i class="fas fa-star text-warning me-3"></i>
+                    Bài viết nổi bật
+                </h2>
+            </div>
+        </div>
+        
+        <div class="row">
+            {% assign featured_posts = site.posts | where: "featured", true | limit: 3 %}
+            {% for post in featured_posts %}
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm hover-lift">
+                    {% if post.image %}
+                    <img src="{{ post.image }}" class="card-img-top" alt="{{ post.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <div class="card-meta text-muted small mb-2">
+                            <i class="far fa-calendar-alt me-1"></i>
+                            {{ post.date | date: "%d/%m/%Y" }}
+                            {% if post.categories %}
+                            <span class="ms-2">
+                                <i class="fas fa-tags me-1"></i>
+                                {{ post.categories | first }}
+                            </span>
+                            {% endif %}
+                        </div>
+                        <h5 class="card-title">{{ post.title }}</h5>
+                        <p class="card-text text-muted">{{ post.excerpt | strip_html | truncate: 120 }}</p>
+                        <a href="{{ post.url }}" class="btn btn-outline-primary btn-sm">
+                            Đọc tiếp <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="/blog/" class="btn btn-primary btn-lg">
+                Xem tất cả bài viết <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Series Section -->
+<section class="series-section bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center mb-5">
+                    <i class="fas fa-layer-group text-primary me-3"></i>
+                    Series bài viết
+                </h2>
+            </div>
+        </div>
+        
+        <div class="row">
+            {% assign featured_series = site.series | where: "featured", true | limit: 3 %}
+            {% for series in featured_series %}
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="series-icon mb-3">
+                            <i class="fas fa-book fa-3x text-primary"></i>
+                        </div>
+                        <h5 class="card-title">{{ series.title }}</h5>
+                        <p class="card-text text-muted">{{ series.description }}</p>
+                        <div class="series-meta text-muted small mb-3">
+                            <i class="fas fa-file-alt me-1"></i>
+                            {{ series.posts | size }} bài viết
+                        </div>
+                        <a href="{{ series.url }}" class="btn btn-primary">
+                            Xem series <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="/series/" class="btn btn-outline-primary btn-lg">
+                Xem tất cả series <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Categories Section -->
+<section class="categories-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center mb-5">
+                    <i class="fas fa-tags text-success me-3"></i>
+                    Chủ đề chính
+                </h2>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <div class="category-card text-center p-4">
+                    <i class="fas fa-code fa-3x text-primary mb-3"></i>
+                    <h5>Lập trình</h5>
+                    <p class="text-muted">JavaScript, Python, Java, Go</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="category-card text-center p-4">
+                    <i class="fas fa-server fa-3x text-success mb-3"></i>
+                    <h5>DevOps</h5>
+                    <p class="text-muted">Docker, Kubernetes, CI/CD</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="category-card text-center p-4">
+                    <i class="fas fa-cloud fa-3x text-info mb-3"></i>
+                    <h5>Cloud</h5>
+                    <p class="text-muted">AWS, Azure, GCP</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="category-card text-center p-4">
+                    <i class="fas fa-database fa-3x text-warning mb-3"></i>
+                    <h5>Database</h5>
+                    <p class="text-muted">SQL, NoSQL, Redis</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter Section -->
+<section class="newsletter-section bg-dark text-white py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 text-center">
+                <h3 class="mb-3">
+                    <i class="fas fa-envelope me-3"></i>
+                    Đăng ký nhận bài viết mới
+                </h3>
+                <p class="text-muted mb-4">
+                    Nhận thông báo khi có bài viết mới về công nghệ
+                </p>
+                <form class="newsletter-form">
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="Email của bạn" required>
+                        <button class="btn btn-warning" type="submit">
+                            <i class="fas fa-paper-plane me-2"></i>Đăng ký
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section> 

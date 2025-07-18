@@ -1,0 +1,154 @@
+---
+layout: page
+title: Blog
+subtitle: Tất cả bài viết về công nghệ
+---
+
+<div class="blog-page">
+    <!-- Search and Filter Section -->
+    <div class="row mb-5">
+        <div class="col-md-8">
+            <div class="input-group">
+                <span class="input-group-text">
+                    <i class="fas fa-search"></i>
+                </span>
+                <input type="text" class="form-control" id="search-input" placeholder="Tìm kiếm bài viết...">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <select class="form-select" id="category-filter">
+                <option value="">Tất cả chủ đề</option>
+                <option value="programming">Lập trình</option>
+                <option value="devops">DevOps</option>
+                <option value="cloud">Cloud</option>
+                <option value="database">Database</option>
+                <option value="security">Bảo mật</option>
+                <option value="ai-ml">AI/ML</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Posts Grid -->
+    <div class="row" id="posts-container">
+        {% for post in site.posts %}
+        <div class="col-lg-4 col-md-6 mb-4 post-card" data-categories="{{ post.categories | join: ' ' }}">
+            <div class="card h-100 shadow-sm hover-lift">
+                {% if post.image %}
+                <img src="{{ post.image }}" class="card-img-top" alt="{{ post.title }}">
+                {% else %}
+                <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                    <i class="fas fa-file-alt fa-3x text-muted"></i>
+                </div>
+                {% endif %}
+                
+                <div class="card-body">
+                    <div class="card-meta text-muted small mb-2">
+                        <i class="far fa-calendar-alt me-1"></i>
+                        {{ post.date | date: "%d/%m/%Y" }}
+                        {% if post.author %}
+                        <span class="ms-2">
+                            <i class="far fa-user me-1"></i>
+                            {{ post.author }}
+                        </span>
+                        {% endif %}
+                    </div>
+                    
+                    <h5 class="card-title post-title">{{ post.title }}</h5>
+                    <p class="card-text text-muted post-excerpt">
+                        {% if post.excerpt %}
+                        {{ post.excerpt | strip_html | truncate: 120 }}
+                        {% else %}
+                        {{ post.content | strip_html | truncate: 120 }}
+                        {% endif %}
+                    </p>
+                    
+                    {% if post.categories %}
+                    <div class="mb-3">
+                        {% for category in post.categories %}
+                        <span class="badge bg-secondary me-1">{{ category }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    
+                    <a href="{{ post.url }}" class="btn btn-outline-primary btn-sm">
+                        Đọc tiếp <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- No Results Message -->
+    <div class="text-center py-5" id="no-results" style="display: none;">
+        <i class="fas fa-search fa-3x text-muted mb-3"></i>
+        <h4 class="text-muted">Không tìm thấy bài viết nào</h4>
+        <p class="text-muted">Thử tìm kiếm với từ khóa khác hoặc xóa bộ lọc</p>
+    </div>
+
+    <!-- Pagination (if needed) -->
+    {% if site.posts.size > 9 %}
+    <nav aria-label="Blog pagination" class="mt-5">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Trước</a>
+            </li>
+            <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">3</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">Sau</a>
+            </li>
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search-input');
+    const categoryFilter = document.getElementById('category-filter');
+    const postsContainer = document.getElementById('posts-container');
+    const noResults = document.getElementById('no-results');
+    const postCards = document.querySelectorAll('.post-card');
+
+    function filterPosts() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const selectedCategory = categoryFilter.value.toLowerCase();
+        let visibleCount = 0;
+
+        postCards.forEach(card => {
+            const title = card.querySelector('.post-title').textContent.toLowerCase();
+            const excerpt = card.querySelector('.post-excerpt').textContent.toLowerCase();
+            const categories = card.dataset.categories.toLowerCase();
+            
+            const matchesSearch = title.includes(searchTerm) || excerpt.includes(searchTerm);
+            const matchesCategory = !selectedCategory || categories.includes(selectedCategory);
+            
+            if (matchesSearch && matchesCategory) {
+                card.style.display = 'block';
+                visibleCount++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        if (visibleCount === 0) {
+            noResults.style.display = 'block';
+            postsContainer.style.display = 'none';
+        } else {
+            noResults.style.display = 'none';
+            postsContainer.style.display = 'flex';
+        }
+    }
+
+    searchInput.addEventListener('input', filterPosts);
+    categoryFilter.addEventListener('change', filterPosts);
+});
+</script> 

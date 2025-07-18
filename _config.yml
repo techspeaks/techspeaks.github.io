@@ -1,0 +1,68 @@
+title: TechSpeaks
+description: Chia sẻ kiến thức công nghệ, bài viết và series về lập trình, DevOps, và các công nghệ mới
+author: TechSpeaks Team
+email: contact@techspeaks.dev
+url: "https://techspeaks.github.io"
+baseurl: ""
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: /:title/
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /blog/:title/
+  series:
+    output: true
+    permalink: /series/:title/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "TechSpeaks Team"
+  - scope:
+      path: ""
+      type: "series"
+    values:
+      layout: "series"
+      author: "TechSpeaks Team"
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+
+# Social media
+social:
+  github: techspeaks
+  twitter: techspeaks_dev
+  linkedin: techspeaks
+
+# Navigation
+navigation:
+  - title: Trang chủ
+    url: /
+  - title: Blog
+    url: /blog/
+  - title: Series
+    url: /series/
+  - title: Về chúng tôi
+    url: /about/ 

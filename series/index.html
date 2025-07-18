@@ -1,0 +1,266 @@
+---
+layout: page
+title: Series
+subtitle: Các chuỗi bài viết chuyên sâu
+---
+
+<div class="series-page">
+    <!-- Introduction -->
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto text-center">
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                <strong>Series bài viết</strong> là những chuỗi bài viết chuyên sâu về một chủ đề cụ thể. 
+                Mỗi series sẽ đi từ cơ bản đến nâng cao, giúp bạn hiểu sâu và thực hành được.
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Series -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h3 class="mb-4">
+                <i class="fas fa-star text-warning me-2"></i>
+                Series nổi bật
+            </h3>
+        </div>
+        
+        {% assign featured_series = site.series | where: "featured", true %}
+        {% for series in featured_series %}
+        <div class="col-lg-6 mb-4">
+            <div class="card border-0 shadow-lg h-100">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="series-icon me-3">
+                            <i class="fas fa-book fa-2x text-primary"></i>
+                        </div>
+                        <div>
+                            <h5 class="card-title mb-1">{{ series.title }}</h5>
+                            <span class="badge bg-warning text-dark">Nổi bật</span>
+                        </div>
+                    </div>
+                    
+                    <p class="card-text text-muted mb-3">{{ series.description }}</p>
+                    
+                    <div class="series-stats mb-3">
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <i class="fas fa-file-alt text-primary"></i>
+                                    <div class="stat-number">{{ series.posts | size }}</div>
+                                    <div class="stat-label">Bài viết</div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <i class="fas fa-clock text-success"></i>
+                                    <div class="stat-number">{{ series.duration | default: "2-3" }}</div>
+                                    <div class="stat-label">Tuần</div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <i class="fas fa-users text-info"></i>
+                                    <div class="stat-number">{{ series.level | default: "Trung cấp" }}</div>
+                                    <div class="stat-label">Độ khó</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="series-topics mb-3">
+                        <strong>Chủ đề chính:</strong>
+                        {% for topic in series.topics %}
+                        <span class="badge bg-light text-dark me-1">{{ topic }}</span>
+                        {% endfor %}
+                    </div>
+                    
+                    <a href="{{ series.url }}" class="btn btn-primary w-100">
+                        <i class="fas fa-play me-2"></i>
+                        Bắt đầu series
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- All Series -->
+    <div class="row">
+        <div class="col-12">
+            <h3 class="mb-4">
+                <i class="fas fa-layer-group text-primary me-2"></i>
+                Tất cả series
+            </h3>
+        </div>
+        
+        {% for series in site.series %}
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100 shadow-sm hover-lift">
+                <div class="card-body p-4">
+                    <div class="series-header mb-3">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="series-icon">
+                                <i class="fas fa-book fa-2x text-primary"></i>
+                            </div>
+                            {% if series.featured %}
+                            <span class="badge bg-warning text-dark">Nổi bật</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <h5 class="card-title">{{ series.title }}</h5>
+                    <p class="card-text text-muted">{{ series.description }}</p>
+                    
+                    <div class="series-meta mb-3">
+                        <div class="row text-center">
+                            <div class="col-6">
+                                <small class="text-muted">
+                                    <i class="fas fa-file-alt me-1"></i>
+                                    {{ series.posts | size }} bài
+                                </small>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-muted">
+                                    <i class="fas fa-clock me-1"></i>
+                                    {{ series.duration | default: "2-3" }} tuần
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {% if series.topics %}
+                    <div class="series-topics mb-3">
+                        {% for topic in series.topics limit: 3 %}
+                        <span class="badge bg-secondary me-1">{{ topic }}</span>
+                        {% endfor %}
+                        {% if series.topics.size > 3 %}
+                        <span class="badge bg-secondary">+{{ series.topics.size | minus: 3 }}</span>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    
+                    <a href="{{ series.url }}" class="btn btn-outline-primary btn-sm w-100">
+                        Xem chi tiết <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- External Series -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <h3 class="mb-4">
+                <i class="fas fa-external-link-alt text-success me-2"></i>
+                Series từ các repo khác
+            </h3>
+            <p class="text-muted mb-4">
+                Một số series dài được lưu trữ trong các repository riêng biệt để dễ quản lý và đóng góp.
+            </p>
+        </div>
+        
+        <div class="col-lg-6 mb-4">
+            <div class="card border-success h-100">
+                <div class="card-header bg-success text-white">
+                    <i class="fab fa-github me-2"></i>
+                    DevOps từ A đến Z
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Series toàn diện về DevOps, từ cơ bản đến nâng cao, bao gồm Docker, Kubernetes, 
+                        CI/CD, và các công cụ hiện đại khác.
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="series-info">
+                            <small class="text-muted">
+                                <i class="fas fa-star me-1"></i> 15 bài viết
+                            </small>
+                        </div>
+                        <a href="https://github.com/techspeaks/devops-series" class="btn btn-success btn-sm" target="_blank">
+                            Xem trên GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-6 mb-4">
+            <div class="card border-info h-100">
+                <div class="card-header bg-info text-white">
+                    <i class="fab fa-github me-2"></i>
+                    Microservices Architecture
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Hướng dẫn chi tiết về kiến trúc microservices, từ thiết kế, triển khai 
+                        đến monitoring và troubleshooting.
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="series-info">
+                            <small class="text-muted">
+                                <i class="fas fa-star me-1"></i> 12 bài viết
+                            </small>
+                        </div>
+                        <a href="https://github.com/techspeaks/microservices-series" class="btn btn-info btn-sm" target="_blank">
+                            Xem trên GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="row mt-5">
+        <div class="col-lg-8 mx-auto text-center">
+            <div class="alert alert-warning">
+                <h5 class="mb-3">
+                    <i class="fas fa-lightbulb me-2"></i>
+                    Bạn có ý tưởng về series mới?
+                </h5>
+                <p class="mb-3">
+                    Chúng tôi luôn tìm kiếm những chủ đề mới và hữu ích để chia sẻ với cộng đồng. 
+                    Hãy đóng góp ý tưởng của bạn!
+                </p>
+                <a href="mailto:{{ site.email }}?subject=Đề xuất series mới" class="btn btn-warning">
+                    <i class="fas fa-paper-plane me-2"></i>
+                    Gửi đề xuất
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.series-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.stat-item {
+    padding: 10px;
+}
+
+.stat-number {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: var(--secondary-color);
+}
+
+.series-topics .badge {
+    font-size: 0.7rem;
+}
+</style> 
