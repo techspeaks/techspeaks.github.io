@@ -1,6 +1,6 @@
 // Main JavaScript for TechSpeaks
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Navbar background on scroll
     const navbar = document.querySelector('.navbar');
     if (navbar) {
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
             if (window.scrollY > 50) {
                 navbar.classList.add('scrolled');
             } else {
@@ -30,22 +30,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // Newsletter form submission
     const newsletterForm = document.querySelector('.newsletter-form');
     if (newsletterForm) {
-        newsletterForm.addEventListener('submit', function(e) {
+        newsletterForm.addEventListener('submit', function (e) {
             e.preventDefault();
             const email = this.querySelector('input[type="email"]').value;
             const button = this.querySelector('button');
             const originalText = button.innerHTML;
-            
+
             // Show loading state
             button.innerHTML = '<span class="loading"></span> Đang đăng ký...';
             button.disabled = true;
-            
+
             // Simulate API call
             setTimeout(() => {
                 button.innerHTML = '<i class="fas fa-check me-2"></i>Đăng ký thành công!';
                 button.classList.remove('btn-warning');
                 button.classList.add('btn-success');
-                
+
                 // Reset form
                 setTimeout(() => {
                     button.innerHTML = originalText;
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
         rootMargin: '0px 0px -50px 0px'
     };
 
-    const observer = new IntersectionObserver(function(entries) {
+    const observer = new IntersectionObserver(function (entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('fade-in');
@@ -80,14 +80,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Search functionality (if needed)
     const searchInput = document.querySelector('#search-input');
     if (searchInput) {
-        searchInput.addEventListener('input', function() {
+        searchInput.addEventListener('input', function () {
             const query = this.value.toLowerCase();
             const posts = document.querySelectorAll('.post-card');
-            
+
             posts.forEach(post => {
                 const title = post.querySelector('.post-title').textContent.toLowerCase();
                 const excerpt = post.querySelector('.post-excerpt').textContent.toLowerCase();
-                
+
                 if (title.includes(query) || excerpt.includes(query)) {
                     post.style.display = 'block';
                 } else {
@@ -105,14 +105,14 @@ document.addEventListener('DOMContentLoaded', function() {
         button.style.position = 'absolute';
         button.style.top = '10px';
         button.style.right = '10px';
-        
+
         const wrapper = document.createElement('div');
         wrapper.style.position = 'relative';
         block.parentNode.insertBefore(wrapper, block);
         wrapper.appendChild(block);
         wrapper.appendChild(button);
-        
-        button.addEventListener('click', function() {
+
+        button.addEventListener('click', function () {
             navigator.clipboard.writeText(block.textContent).then(() => {
                 button.innerHTML = '<i class="fas fa-check"></i>';
                 setTimeout(() => {
@@ -125,15 +125,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mobile menu toggle
     const navbarToggler = document.querySelector('.navbar-toggler');
     const navbarCollapse = document.querySelector('.navbar-collapse');
-    
+
     if (navbarToggler && navbarCollapse) {
-        navbarToggler.addEventListener('click', function() {
+        navbarToggler.addEventListener('click', function () {
             navbarCollapse.classList.toggle('show');
         });
-        
+
         // Close mobile menu when clicking on a link
         document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
-            link.addEventListener('click', function() {
+            link.addEventListener('click', function () {
                 navbarCollapse.classList.remove('show');
             });
         });
@@ -154,18 +154,18 @@ document.addEventListener('DOMContentLoaded', function() {
         border-radius: 50%;
         box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     `;
-    
+
     document.body.appendChild(backToTopBtn);
-    
-    window.addEventListener('scroll', function() {
+
+    window.addEventListener('scroll', function () {
         if (window.scrollY > 300) {
             backToTopBtn.style.display = 'block';
         } else {
             backToTopBtn.style.display = 'none';
         }
     });
-    
-    backToTopBtn.addEventListener('click', function() {
+
+    backToTopBtn.addEventListener('click', function () {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
@@ -184,18 +184,18 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
+
     images.forEach(img => imageObserver.observe(img));
 
     // Theme toggle (if needed)
     const themeToggle = document.querySelector('#theme-toggle');
     if (themeToggle) {
-        themeToggle.addEventListener('click', function() {
+        themeToggle.addEventListener('click', function () {
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
         });
-        
+
         // Load saved theme
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark') {

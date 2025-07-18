@@ -12,7 +12,7 @@ title: Trang chủ
                     Chia sẻ kiến thức <span class="text-warning">công nghệ</span>
                 </h1>
                 <p class="lead mb-4">
-                    Nơi chia sẻ những bài viết chất lượng về lập trình, DevOps, 
+                    Nơi chia sẻ những bài viết chất lượng về lập trình, DevOps,
                     và các công nghệ mới nhất trong ngành IT.
                 </p>
                 <div class="hero-buttons">
@@ -44,7 +44,7 @@ title: Trang chủ
                 </h2>
             </div>
         </div>
-        
+
         <div class="row">
             {% assign featured_posts = site.posts | where: "featured", true | limit: 3 %}
             {% for post in featured_posts %}
@@ -74,7 +74,7 @@ title: Trang chủ
             </div>
             {% endfor %}
         </div>
-        
+
         <div class="text-center mt-4">
             <a href="/blog/" class="btn btn-primary btn-lg">
                 Xem tất cả bài viết <i class="fas fa-arrow-right ms-2"></i>
@@ -94,7 +94,7 @@ title: Trang chủ
                 </h2>
             </div>
         </div>
-        
+
         <div class="row">
             {% assign featured_series = site.series | where: "featured", true | limit: 3 %}
             {% for series in featured_series %}
@@ -118,7 +118,7 @@ title: Trang chủ
             </div>
             {% endfor %}
         </div>
-        
+
         <div class="text-center mt-4">
             <a href="/series/" class="btn btn-outline-primary btn-lg">
                 Xem tất cả series <i class="fas fa-arrow-right ms-2"></i>
@@ -138,7 +138,7 @@ title: Trang chủ
                 </h2>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-md-3 mb-4">
                 <div class="category-card text-center p-4">
@@ -195,4 +195,4 @@ title: Trang chủ
             </div>
         </div>
     </div>
-</section> 
+</section>

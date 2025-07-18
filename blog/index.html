@@ -36,11 +36,12 @@ subtitle: Tất cả bài viết về công nghệ
                 {% if post.image %}
                 <img src="{{ post.image }}" class="card-img-top" alt="{{ post.title }}">
                 {% else %}
-                <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                <div class="card-img-top bg-light d-flex align-items-center justify-content-center"
+                    style="height: 200px;">
                     <i class="fas fa-file-alt fa-3x text-muted"></i>
                 </div>
                 {% endif %}
-                
+
                 <div class="card-body">
                     <div class="card-meta text-muted small mb-2">
                         <i class="far fa-calendar-alt me-1"></i>
@@ -52,7 +53,7 @@ subtitle: Tất cả bài viết về công nghệ
                         </span>
                         {% endif %}
                     </div>
-                    
+
                     <h5 class="card-title post-title">{{ post.title }}</h5>
                     <p class="card-text text-muted post-excerpt">
                         {% if post.excerpt %}
@@ -61,7 +62,7 @@ subtitle: Tất cả bài viết về công nghệ
                         {{ post.content | strip_html | truncate: 120 }}
                         {% endif %}
                     </p>
-                    
+
                     {% if post.categories %}
                     <div class="mb-3">
                         {% for category in post.categories %}
@@ -69,7 +70,7 @@ subtitle: Tất cả bài viết về công nghệ
                         {% endfor %}
                     </div>
                     {% endif %}
-                    
+
                     <a href="{{ post.url }}" class="btn btn-outline-primary btn-sm">
                         Đọc tiếp <i class="fas fa-arrow-right ms-1"></i>
                     </a>
@@ -111,44 +112,44 @@ subtitle: Tất cả bài viết về công nghệ
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('search-input');
-    const categoryFilter = document.getElementById('category-filter');
-    const postsContainer = document.getElementById('posts-container');
-    const noResults = document.getElementById('no-results');
-    const postCards = document.querySelectorAll('.post-card');
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('search-input');
+        const categoryFilter = document.getElementById('category-filter');
+        const postsContainer = document.getElementById('posts-container');
+        const noResults = document.getElementById('no-results');
+        const postCards = document.querySelectorAll('.post-card');
 
-    function filterPosts() {
-        const searchTerm = searchInput.value.toLowerCase();
-        const selectedCategory = categoryFilter.value.toLowerCase();
-        let visibleCount = 0;
+        function filterPosts() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const selectedCategory = categoryFilter.value.toLowerCase();
+            let visibleCount = 0;
 
-        postCards.forEach(card => {
-            const title = card.querySelector('.post-title').textContent.toLowerCase();
-            const excerpt = card.querySelector('.post-excerpt').textContent.toLowerCase();
-            const categories = card.dataset.categories.toLowerCase();
-            
-            const matchesSearch = title.includes(searchTerm) || excerpt.includes(searchTerm);
-            const matchesCategory = !selectedCategory || categories.includes(selectedCategory);
-            
-            if (matchesSearch && matchesCategory) {
-                card.style.display = 'block';
-                visibleCount++;
+            postCards.forEach(card => {
+                const title = card.querySelector('.post-title').textContent.toLowerCase();
+                const excerpt = card.querySelector('.post-excerpt').textContent.toLowerCase();
+                const categories = card.dataset.categories.toLowerCase();
+
+                const matchesSearch = title.includes(searchTerm) || excerpt.includes(searchTerm);
+                const matchesCategory = !selectedCategory || categories.includes(selectedCategory);
+
+                if (matchesSearch && matchesCategory) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (visibleCount === 0) {
+                noResults.style.display = 'block';
+                postsContainer.style.display = 'none';
             } else {
-                card.style.display = 'none';
+                noResults.style.display = 'none';
+                postsContainer.style.display = 'flex';
             }
-        });
-
-        if (visibleCount === 0) {
-            noResults.style.display = 'block';
-            postsContainer.style.display = 'none';
-        } else {
-            noResults.style.display = 'none';
-            postsContainer.style.display = 'flex';
         }
-    }
 
-    searchInput.addEventListener('input', filterPosts);
-    categoryFilter.addEventListener('change', filterPosts);
-});
-</script> 
+        searchInput.addEventListener('input', filterPosts);
+        categoryFilter.addEventListener('change', filterPosts);
+    });
+</script>
